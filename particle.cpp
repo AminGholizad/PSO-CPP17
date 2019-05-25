@@ -1,7 +1,7 @@
 #include "particle.hpp"
 inline Particle::Particle (vec l,vec u,prob problem):l{l},u{u} {
-  x=init_random(l,u);//todo
-  std::fill(v.begin(),v.begin()+x.size(),0)
+  for (size_t i = 0; i < l.size(); i++) x[i]=randin(l[i],u[i]);
+  std::fill(v.begin(),v.begin()+x.size(),0);
   [cost,infeasablity]=problem(x);
   pBest=x;
   pBest_cost=cost;
@@ -28,7 +28,7 @@ inline Particle::updateX(){
 }
 inline Particle::Mutate(double pm,prob problem){
   if (rand()>pm) return;
-  int j = randi(0,x.size());//todo
+  int j = randin(0,x.size());
   double dx=pm*(u(j)-l(j));
   double lb=max(x[j]-dx,l[j]);
   double ub=min(x[j]+dx,u[j]);
