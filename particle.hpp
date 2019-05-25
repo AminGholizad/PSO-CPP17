@@ -9,12 +9,12 @@ class Particle {
     inline Particle(Particle&&) = default;
     inline Particle& operator=(Particle const&) = default;
     inline Particle& operator=(Particle&&) = default;
-    inline Particle (vec l,vec u,prob problem);
-    inline update(double w,double[] c,double pm,Particle gBest,prob problem);
+    inline Particle (vec l,vec u,prob& problem);
+    inline update(double w,double[] c,double pm,Particle gBest,prob& problem);
     inline updateV(double w,double[] c,Particle gBest);
     inline updateX();
     inline updatePBest();
-    inline Mutate(double pm,prob problem);
+    inline Mutate(double pm,prob& problem);
   private:
     vec l;
     vec u;
