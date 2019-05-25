@@ -1,6 +1,7 @@
 #include "particle.hpp"
+#include "rand.hpp"
 inline Particle::Particle (vec l,vec u,prob problem):l{l},u{u} {
-  for (size_t i = 0; i < l.size(); i++) x[i]=randin(l[i],u[i]);
+  for (size_t i = 0; i < l.size(); i++) x[i]=rand::unifrnd(l[i],u[i]);
   std::fill(v.begin(),v.begin()+x.size(),0);
   [cost,infeasablity]=problem(x);
   pBest=x;
