@@ -6,7 +6,7 @@ inline std::mt19937& rand::Generator(){
   return gen;
 }
 template <typename T>
-inline T rand::unifrand(T a,T b){
+inline T rand::unifrnd(T a,T b){
   if constexpr(std::is_integral_v<T>){
     std::uniform_int_distribution<T> dis(a, b);
     return dis(Generator());
