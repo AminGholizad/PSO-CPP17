@@ -8,7 +8,7 @@ inline Particle::Particle (vec l,vec u,prob problem):l{l},u{u} {
   pBest_cost=cost;
   pBest_infeasablity=infeasablity;
 };
-inline Particle::update(double w,double[] c,double pm,Particle gBest,prob problem){
+inline Particle::update(double w,double[] c,double pm,Particle gBest,prob& problem){
   updateV(w,c,gBest);
   updateX();
   [cost, infeasablity] = problem(x);
@@ -27,7 +27,7 @@ inline Particle::updateX(){
     if (x[i]>u[i] || x[i]<l[i]) x[i]-=2*v[i];
   }
 }
-inline Particle::Mutate(double pm,prob problem){
+inline Particle::Mutate(double pm,prob& problem){
   if (rand()>pm) return;
   int j = randin(0,x.size());
   double dx=pm*(u(j)-l(j));
