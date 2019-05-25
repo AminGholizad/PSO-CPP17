@@ -2,6 +2,8 @@
 #define PARTICLE_H
 #include <vector>
 #include <functional>
+#include <limits>
+#include <cmath>
 #include "rand.hpp"
 using vec=std::vector<double>;
 using prob=std::function<std::pair<double,double>(vec)>;
@@ -12,12 +14,13 @@ class Particle {
     inline Particle(Particle&&) = default;
     inline Particle& operator=(Particle const&) = default;
     inline Particle& operator=(Particle&&) = default;
-    inline Particle (vec l,vec u,prob& problem);
-    inline void update(double w,double c[],double pm,Particle gBest,prob& problem);
-    inline void updateV(double w,double c[],Particle gBest);
+    inline Particle(vec,vec,prob&);
+    inline void update(double,double[],double,Particle,prob&);
+    inline void updateV(double,double[],Particle);
     inline void updateX();
     inline void updatePBest();
-    inline void Mutate(double pm,prob& problem);
+    inline void Mutate(double,prob&);
+    inline static Particle get_gBest(const std::vector<Particle>&);
   private:
     vec l;
     vec u;
