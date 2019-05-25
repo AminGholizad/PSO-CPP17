@@ -6,7 +6,7 @@ inline Particle::Particle(vec l,vec u,prob& problem):l{l},u{u} {
   pBest=x;
   pBest_cost=cost;
   pBest_infeasablity=infeasablity;
-};
+}
 inline void Particle::update(double w,double c[],double pm,Particle gBest,prob& problem){
   updateV(w,c,gBest);
   updateX();
@@ -52,4 +52,10 @@ inline void Particle::updatePBest(){
     pBest_cost=cost;
     pBest_infeasablity=infeasablity;
   }
+}
+inline static Particle Particle::get_gBest(const std::vector<Particle>& swarm){
+  return *std::min_element(swarm.begin(),swarm.end(),
+                          [](auto it){
+                            return (it->infinity==0)?it->cost:std::numeric_limits<double>::infinity();
+                          })
 }
