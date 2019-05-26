@@ -15,7 +15,7 @@ class Particle {
     inline Particle(Particle&&) = default;
     inline Particle& operator=(Particle const&) = default;
     inline Particle& operator=(Particle&&) = default;
-    inline Particle(vec l,vec u,const prob& problem):l{l},u{u} {
+    inline Particle(const vec& l,const vec& u,const prob& problem):l{l},u{u} {
       for (size_t i = 0; i < l.size(); i++) x[i]=rnd::unifrnd(l[i],u[i]);
       std::fill(v.begin(),v.begin()+x.size(),0);
       std::tie(cost,infeasablity)=problem(x);
@@ -87,14 +87,14 @@ class Particle {
                                 return a.dominates(b);
                               });
     }
-    inline void disp() {
+    inline void disp() const&{
       std::cout << "cost = " << cost << '\n';
       std::cout << "infeasablity = " << infeasablity << '\n';
         std::cout << "( ";
       for (size_t i = 0; i < x.size(); i++) {
         std::cout << x[i] << ' ';
       }
-      std::cout << '\n';
+      std::cout << ")\n";
     }
   private:
     vec l;
