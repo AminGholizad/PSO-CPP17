@@ -7,6 +7,7 @@ std::pair<double,double>cost_fcn(vec x){
     s+=x[i]*x[i];
     c+=x[i];
   }
+  c=(c>0)?c:0;
   return std::make_pair(s,c);
 }
 int main(){
