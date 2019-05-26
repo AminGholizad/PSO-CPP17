@@ -20,7 +20,7 @@ namespace pso {
       inline Particle& operator=(Particle const&) = default;
       inline Particle& operator=(Particle&&) = default;
       inline Particle(const vars<N>& l,const vars<N>& u,const Problem<N>& problem):l{l},u{u} {
-        for (size_t i = 0; i < l.size(); i++){
+        for (size_t i = 0; i < N; i++){
           x[i]=rnd::unifrnd(l[i],u[i]);
           v[i]=0.;
         }
@@ -51,12 +51,12 @@ namespace pso {
         std::cout << "\tcost = " << cost << '\n';
         std::cout << "\tinfeasablity = " << infeasablity << '\n';
         std::cout << "\tx=(";
-        for (size_t i = 0; i < x.size()-1; i++) {
+        for (size_t i = 0; i < N-1; i++) {
           std::cout << x[i] << ", ";
         }
         std::cout << x.back() << ")\n";
         std::cout << "\tv=(";
-        for (size_t i = 0; i < v.size()-1; i++) {
+        for (size_t i = 0; i < N-1; i++) {
           std::cout << v[i] << ", ";
         }
         std::cout << v.back() << ")\n";
@@ -64,19 +64,19 @@ namespace pso {
         std::cout << "\t\tcost = " << pBest_cost << '\n';
         std::cout << "\t\tinfeasablity = " << pBest_infeasablity << '\n';
         std::cout << "\t\tx=(";
-        for (size_t i = 0; i < x.size()-1; i++) {
+        for (size_t i = 0; i < N-1; i++) {
           std::cout << pBest[i] << ", ";
         }
         std::cout << pBest.back() << ")\n";
       }
     private:
       inline void updateV(const Particle& gBest,const double w=0.5,const std::array<double,2>& c={0.2,0.2}){
-        for (size_t i = 0; i < v.size(); i++) {
+        for (size_t i = 0; i < N; i++) {
           v[i]=w*v[i]+c[0]*rnd::rand()*(pBest[i]-x[i])+c[1]*rnd::rand()*(gBest.x[i]-x[i]);
         }
       }
       inline void updateX(){
-        for (size_t i = 0; i < x.size(); i++) {
+        for (size_t i = 0; i < N; i++) {
           x[i]+=v[i];
           if (x[i]>u[i] || x[i]<l[i]){
             v[i]*=-1;
@@ -100,7 +100,7 @@ namespace pso {
       }
       inline void Mutate(const Problem<N>& problem,const double pm=0.1){
         if (rnd::rand()>pm) return;
-        size_t j = rnd::unifrnd((size_t)0,x.size());
+        size_t j = rnd::unifrnd<size_t>(0,N);
         double dx=pm*(u[j]-l[j]);
         double lb=std::max(x[j]-dx,l[j]);
         double ub=std::min(x[j]+dx,u[j]);
