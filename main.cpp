@@ -16,6 +16,6 @@ int main(){
   vec l{-10.,-10.};
   vec u{10.,10.};
   auto p = pso(c,w,1000,l,u,100,0.1,cost_fcn);
-  p.disp();
+  p.info();
   return 0;
 }
