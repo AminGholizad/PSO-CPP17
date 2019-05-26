@@ -34,9 +34,7 @@ class Particle {
     }
     inline void updateV(const double w,const double c[],const Particle& gBest){
       for (size_t i = 0; i < v.size(); i++) {
-        //std::cout << v[i] << "=>";
         v[i]=w*v[i]+c[0]*rnd::rand()*(pBest[i]-x[i])+c[1]*rnd::rand()*(gBest.x[i]-x[i]);
-        //std::cout << v[i] << '\n';
       }
     }
     inline void updateX(){
@@ -45,13 +43,6 @@ class Particle {
         if (x[i]>u[i] || x[i]<l[i]){
           v[i]*=-1;
           x[i]+=2*v[i];
-          if (x[i]>u[i] || x[i]<l[i]){
-            do {
-              x[i]-=v[i];
-              v[i]*=-0.5;
-              x[i]+=v[i];
-            } while(x[i]>u[i] || x[i]<l[i]);
-          }
         }
       }
     }
