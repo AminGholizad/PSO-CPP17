@@ -70,10 +70,13 @@ class Particle {
         infeasablity = i;
       }
     }
-    inline static Particle get_gBest(const std::vector<Particle>& swarm){
+    inline bool dominates(const Particle& b)const&{
+      return ((infeasablity<=b.infeasablity) && (cost < b.cost));
+    }
+    inline static Particle get_Best(const std::vector<Particle>& swarm){
       return *std::min_element(swarm.begin(),swarm.end(),
                               [](const auto& a,const auto& b){
-                                return ((a.infeasablity<=b.infeasablity) && (a.cost < b.cost));
+                                return a.dominates(b);
                               });
     }
   private:
