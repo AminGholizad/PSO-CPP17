@@ -6,12 +6,12 @@ template<pso::ull N>
 std::pair<double,double>cost_fcn(pso::vars<N> x){
   double s = 0.;
   double c = 0.;
-  for (size_t i = 0; i < x.size(); i++) {
+  for (size_t i = 0; i < N; i++) {
     s+=std::sin(x[i]*5)+std::sin(x[i]*7)+std::sin(x[i]*11);
     c+=std::sin(x[i]);
   }
   s=std::abs(s);
-  c=std::abs(c/4-0.7);
+  c=std::abs(c/N-0.7);
   return std::make_pair(s,c);
 }
 int main(){
