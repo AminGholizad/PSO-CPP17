@@ -34,7 +34,9 @@ class Particle {
     }
     inline void updateV(const double w,const double c[],const Particle& gBest){
       for (size_t i = 0; i < v.size(); i++) {
+        //std::cout << v[i] << "=>";
         v[i]=w*v[i]+c[0]*rnd::rand()*(pBest[i]-x[i])+c[1]*rnd::rand()*(gBest.x[i]-x[i]);
+        //std::cout << v[i] << '\n';
       }
     }
     inline void updateX(){
@@ -92,12 +94,12 @@ class Particle {
       for (size_t i = 0; i < x.size()-1; i++) {
         std::cout << x[i] << ", ";
       }
-      std::cout << *x.end() << ")\n";
+      std::cout << x.back() << ")\n";
       std::cout << "v:(";
       for (size_t i = 0; i < v.size()-1; i++) {
         std::cout << v[i] << ", ";
       }
-      std::cout << *v.end() << ")\n";
+      std::cout << v.back() << ")\n";
       std::cout << "pBest:" << '\n';
       std::cout << "cost = " << pBest_cost << '\n';
       std::cout << "infeasablity = " << pBest_infeasablity << '\n';
@@ -105,7 +107,7 @@ class Particle {
       for (size_t i = 0; i < x.size()-1; i++) {
         std::cout << pBest[i] << ", ";
       }
-      std::cout << *pBest.end() << ")\n";
+      std::cout << pBest.back() << ")\n";
     }
   private:
     vec l;
