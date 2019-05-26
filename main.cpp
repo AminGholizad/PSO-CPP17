@@ -11,12 +11,11 @@ std::pair<double,double>cost_fcn(pso::arr<N> x){
   return std::make_pair(s,c);
 }
 int main(){
-  double c[2] = {0.2,0.2};
-  double w[2] = {0.1,0.01};
   const pso::ull N = 4;
+  const pso::ull S = 100;
   pso::arr<N> l{-10.,-10.,-10.,-10.};
   pso::arr<N> u{10.,10.,10.,10.};
-  auto p = pso::pso<N,100>(l,u,cost_fcn<N>,500,100,c,w,0.1);
+  auto p = pso::pso<N,S>(l,u,cost_fcn<N>);
   p.info();
   return 0;
 }
