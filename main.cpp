@@ -11,11 +11,11 @@ std::pair<double,double>cost_fcn(pso::arr<N> x){
   return std::make_pair(s,c);
 }
 int main(){
-  const pso::ull N = 4;
-  const pso::ull S = 100;
-  pso::arr<N> l{-10.,-10.,-10.,-10.};
-  pso::arr<N> u{10.,10.,10.,10.};
-  auto p = pso::pso<N,S>(l,u,cost_fcn<N>);
+  const pso::ull Nvars = 4;
+  const pso::ull Swarm_size = 100;
+  pso::arr<Nvars> l{-10.,-10.,-10.,-10.};
+  pso::arr<Nvars> u{10.,10.,10.,10.};
+  auto p = pso::pso<Nvars,Swarm_size>(l,u,cost_fcn<Nvars>);
   p.info();
   return 0;
 }
