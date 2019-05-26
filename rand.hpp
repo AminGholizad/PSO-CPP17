@@ -3,11 +3,33 @@
 #include <random>
 #include <algorithm>
 namespace rnd{
-  std::mt19937& Generator();
-  template <typename T> T unifrnd(T,T);
-  double rand();
+  inline std::mt19937& Generator(){
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    return gen;
+  }
+  template <typename T> inline T unifrnd(T a,T b){
+    if constexpr(std::is_integral_v<T>){
+      std::uniform_int_distribution<T> dis(a, b);
+      return dis(Generator());
+    }
+    else {
+      std::uniform_real_distribution<T> dis(a, b);
+      return dis(Generator());
+    }
+  }
+  inline double rand(){
+    return unifrnd(0.,1.);
+  }
   template<typename Iter, typename RandomGenerator>
-  Iter select_randomly(Iter, Iter, RandomGenerator&);
-  template<typename Iter> Iter select_randomly(Iter, Iter);
+  inline Iter select_randomly(Iter start, Iter end, RandomGenerator& g){
+      std::uniform_int_distribution<int> dis(0, std::distance(start, end) - 1);
+      std::advance(start, dis(g));
+      return start;
+  }
+  template<typename Iter>
+  inline Iter select_randomly(Iter start, Iter end){
+    return select_randomly(start,end,Generator());
+  }
 }
 #endif
