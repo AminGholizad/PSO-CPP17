@@ -1,12 +1,13 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 #include <iostream>
-#include <vector>
+#include <array>
 #include <functional>
 #include <limits>
 #include <cmath>
 #include "rand.hpp"
-using vec=std::vector<double>;
+using ull=unsigned long long;
+template<ull N> using vec=std::array<double,N>;
 using prob=std::function<std::pair<double,double>(vec)>;
 class Particle {
   public:
