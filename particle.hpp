@@ -90,15 +90,15 @@ namespace pso {
                                 });
       }
       inline void info() const&{
-        std::cout << "info:\n";
+        std::cout << "particle info:\n";
         std::cout << "\tcost = " << cost << '\n';
         std::cout << "\tinfeasablity = " << infeasablity << '\n';
-        std::cout << "\tx:(";
+        std::cout << "\tx=(";
         for (size_t i = 0; i < x.size()-1; i++) {
           std::cout << x[i] << ", ";
         }
         std::cout << x.back() << ")\n";
-        std::cout << "\tv:(";
+        std::cout << "\tv=(";
         for (size_t i = 0; i < v.size()-1; i++) {
           std::cout << v[i] << ", ";
         }
@@ -106,7 +106,7 @@ namespace pso {
         std::cout << "\tpBest:" << '\n';
         std::cout << "\t\tcost = " << pBest_cost << '\n';
         std::cout << "\t\tinfeasablity = " << pBest_infeasablity << '\n';
-        std::cout << "\t\tx:(";
+        std::cout << "\t\tx=(";
         for (size_t i = 0; i < x.size()-1; i++) {
           std::cout << pBest[i] << ", ";
         }
