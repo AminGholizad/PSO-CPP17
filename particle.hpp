@@ -1,5 +1,6 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
+#include <iostream>
 #include <vector>
 #include <functional>
 #include <limits>
@@ -85,6 +86,15 @@ class Particle {
                               [](const auto& a,const auto& b){
                                 return a.dominates(b);
                               });
+    }
+    inline void disp() {
+      std::cout << "cost = " << cost << '\n';
+      std::cout << "infeasablity = " << infeasablity << '\n';
+        std::cout << "( ";
+      for (size_t i = 0; i < x.size(); i++) {
+        std::cout << x[i] << ' ';
+      }
+      std::cout << '\n';
     }
   private:
     vec l;
