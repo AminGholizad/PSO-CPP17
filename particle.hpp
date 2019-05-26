@@ -16,8 +16,10 @@ class Particle {
     inline Particle& operator=(Particle const&) = default;
     inline Particle& operator=(Particle&&) = default;
     inline Particle(const vec& l,const vec& u,const prob& problem):l{l},u{u} {
-      for (size_t i = 0; i < l.size(); i++) x[i]=rnd::unifrnd(l[i],u[i]);
-      std::fill(v.begin(),v.begin()+x.size(),0);
+      for (size_t i = 0; i < l.size(); i++){
+        x.push_back(rnd::unifrnd(l[i],u[i]));
+        v.push_back(0.);
+      }
       std::tie(cost,infeasablity)=problem(x);
       pBest=x;
       pBest_cost=cost;
