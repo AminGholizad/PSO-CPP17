@@ -16,7 +16,7 @@ int main(){
   const pso::ull N = 4;
   pso::arr<N> l{-10.,-10.,-10.,-10.};
   pso::arr<N> u{10.,10.,10.,10.};
-  auto p = pso::pso<N>(c,w,500,l,u,100,0.1,cost_fcn<N>);
+  auto p = pso::pso<N,100>(l,u,cost_fcn<N>,500,100,c,w,0.1);
   p.info();
   return 0;
 }
