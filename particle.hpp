@@ -47,6 +47,13 @@ class Particle {
         if (x[i]>u[i] || x[i]<l[i]){
           v[i]*=-1;
           x[i]+=2*v[i];
+          if (x[i]>u[i] || x[i]<l[i]){
+            do {
+              x[i]-=v[i];
+              v[i]*=-0.5;
+              x[i]+=v[i];
+            } while(x[i]>u[i] || x[i]<l[i]);
+          }
         }
       }
     }
