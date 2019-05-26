@@ -89,7 +89,7 @@ class Particle {
                                 return a.dominates(b);
                               });
     }
-    inline void disp() const&{
+    inline void info() const&{
       std::cout << "cost = " << cost << '\n';
       std::cout << "infeasablity = " << infeasablity << '\n';
       std::cout << "x:(";
