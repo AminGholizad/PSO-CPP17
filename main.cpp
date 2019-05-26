@@ -15,7 +15,8 @@ int main(){
   double w[2]={0.1,0.01};
   vec l{-10.,-10.};
   vec u{10.,10.};
-  auto p = pso(c,w,1000,l,u,100,0.1,cost_fcn);
+  auto p = pso(c,w,5,l,u,5,0.1,cost_fcn);
+  std::cout << "\n\n***solution found***\n\n";
   p.info();
   return 0;
 }
