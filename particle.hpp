@@ -36,6 +36,40 @@ namespace pso {
         Mutate(pm,problem);
         updatePBest();
       }
+      inline bool dominates(const Particle& b)const&{
+        return ((infeasablity<=b.infeasablity) && (cost < b.cost));
+      }
+      template <ull S>
+      inline static Particle get_Best(const std::array<Particle,S>& swarm){
+        return *std::min_element(swarm.begin(),swarm.end(),
+                                [](const auto& a,const auto& b){
+                                  return a.dominates(b);
+                                });
+      }
+      inline void info() const&{
+        std::cout << "particle info:\n";
+        std::cout << "\tcost = " << cost << '\n';
+        std::cout << "\tinfeasablity = " << infeasablity << '\n';
+        std::cout << "\tx=(";
+        for (size_t i = 0; i < x.size()-1; i++) {
+          std::cout << x[i] << ", ";
+        }
+        std::cout << x.back() << ")\n";
+        std::cout << "\tv=(";
+        for (size_t i = 0; i < v.size()-1; i++) {
+          std::cout << v[i] << ", ";
+        }
+        std::cout << v.back() << ")\n";
+        std::cout << "\tpBest:" << '\n';
+        std::cout << "\t\tcost = " << pBest_cost << '\n';
+        std::cout << "\t\tinfeasablity = " << pBest_infeasablity << '\n';
+        std::cout << "\t\tx=(";
+        for (size_t i = 0; i < x.size()-1; i++) {
+          std::cout << pBest[i] << ", ";
+        }
+        std::cout << pBest.back() << ")\n";
+      }
+    private:
       inline void updateV(const double w,const std::array<double,2> c,const Particle& gBest){
         for (size_t i = 0; i < v.size(); i++) {
           v[i]=w*v[i]+c[0]*rnd::rand()*(pBest[i]-x[i])+c[1]*rnd::rand()*(gBest.x[i]-x[i]);
@@ -79,40 +113,6 @@ namespace pso {
           infeasablity = i;
         }
       }
-      inline bool dominates(const Particle& b)const&{
-        return ((infeasablity<=b.infeasablity) && (cost < b.cost));
-      }
-      template <ull S>
-      inline static Particle get_Best(const std::array<Particle,S>& swarm){
-        return *std::min_element(swarm.begin(),swarm.end(),
-                                [](const auto& a,const auto& b){
-                                  return a.dominates(b);
-                                });
-      }
-      inline void info() const&{
-        std::cout << "particle info:\n";
-        std::cout << "\tcost = " << cost << '\n';
-        std::cout << "\tinfeasablity = " << infeasablity << '\n';
-        std::cout << "\tx=(";
-        for (size_t i = 0; i < x.size()-1; i++) {
-          std::cout << x[i] << ", ";
-        }
-        std::cout << x.back() << ")\n";
-        std::cout << "\tv=(";
-        for (size_t i = 0; i < v.size()-1; i++) {
-          std::cout << v[i] << ", ";
-        }
-        std::cout << v.back() << ")\n";
-        std::cout << "\tpBest:" << '\n';
-        std::cout << "\t\tcost = " << pBest_cost << '\n';
-        std::cout << "\t\tinfeasablity = " << pBest_infeasablity << '\n';
-        std::cout << "\t\tx=(";
-        for (size_t i = 0; i < x.size()-1; i++) {
-          std::cout << pBest[i] << ", ";
-        }
-        std::cout << pBest.back() << ")\n";
-      }
-    private:
       arr<N> l;
       arr<N> u;
       arr<N> x;
