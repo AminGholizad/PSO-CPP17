@@ -8,15 +8,15 @@ namespace pso {
     auto w = [&](size_t it){ return ((max_iter - it) - (iw[0] - iw[1]))/max_iter + iw[1];};
     auto pm = [&](size_t it){ return std::pow(1-it/(max_iter-1.),1/mu);};
     std::array<Particle<N>,S> swarm;
-    for (size_t i = 0; i < swarm.size(); i++)
+    for (size_t i = 0; i < S; i++)
       swarm[i]=Particle(lower_bound,upper_bound,problem);
     auto gBest = swarm[0];
     for (size_t i = 0; i < max_iter; i++) {
-      if (auto tmp = Particle<N>::get_Best(swarm); tmp.dominates(gBest))
+      if (auto tmp=Particle<N>::get_Best(swarm); tmp.dominates(gBest))
         gBest=tmp;
       auto wc = w(i);
       auto pc = pm(i);
-      for (size_t j = 0; j < swarm.size(); j++) {
+      for (size_t j = 0; j < S; j++) {
         swarm[j].update(gBest,problem,wc,c,pc);
       }
     }
