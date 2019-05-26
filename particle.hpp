@@ -10,7 +10,7 @@ namespace pso {
   template<ull N>
   using arr=std::array<double,N>;
   template<ull N>
-  using prob=std::function<std::pair<double,double>(arr<N>)>;
+  using Problem=std::function<std::pair<double,double>(arr<N>)>;
   template<ull N>
   class Particle {
     public:
@@ -19,7 +19,7 @@ namespace pso {
       inline Particle(Particle&&) = default;
       inline Particle& operator=(Particle const&) = default;
       inline Particle& operator=(Particle&&) = default;
-      inline Particle(const arr<N>& l,const arr<N>& u,const prob<N>& problem):l{l},u{u} {
+      inline Particle(const arr<N>& l,const arr<N>& u,const Problem<N>& problem):l{l},u{u} {
         for (size_t i = 0; i < l.size(); i++){
           x[i]=rnd::unifrnd(l[i],u[i]);
           v[i]=0.;
@@ -29,11 +29,11 @@ namespace pso {
         pBest_cost=cost;
         pBest_infeasablity=infeasablity;
       }
-      inline void update(const double w,const std::array<double,2>& c,const double pm,const Particle& gBest,const prob<N>& problem){
-        updateV(w,c,gBest);
+      inline void update(const Particle& gBest,const Problem<N>& problem,const double w=0.5,const std::array<double,2>& c={0.2,0.2},const double pm=0.1){
+        updateV(gBest,w,c);
         updateX();
         std::tie(cost,infeasablity) = problem(x);
-        Mutate(pm,problem);
+        Mutate(problem,pm);
         updatePBest();
       }
       inline bool dominates(const Particle& b)const&{
@@ -70,7 +70,7 @@ namespace pso {
         std::cout << pBest.back() << ")\n";
       }
     private:
-      inline void updateV(const double w,const std::array<double,2>& c,const Particle& gBest){
+      inline void updateV(const Particle& gBest,const double w=0.5,const std::array<double,2>& c={0.2,0.2}){
         for (size_t i = 0; i < v.size(); i++) {
           v[i]=w*v[i]+c[0]*rnd::rand()*(pBest[i]-x[i])+c[1]*rnd::rand()*(gBest.x[i]-x[i]);
         }
@@ -98,7 +98,7 @@ namespace pso {
           pBest_infeasablity=infeasablity;
         }
       }
-      inline void Mutate(const double pm,const prob<N>& problem){
+      inline void Mutate(const Problem<N>& problem,const double pm=0.1){
         if (rnd::rand()>pm) return;
         size_t j = rnd::unifrnd((size_t)0,x.size());
         double dx=pm*(u[j]-l[j]);
