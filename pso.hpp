@@ -12,8 +12,6 @@ Particle pso(const double c[2],const double iw[2],const size_t max_iter,const ve
   for (size_t i = 0; i < max_iter; i++) {
     if (auto tmp = Particle::get_Best(swarm); tmp.dominates(gBest))
       gBest=tmp;
-    /*std::cout << "\ngBest so far\n";
-    gBest.info();*/
     auto wc = w(i);
     auto pc = pm(i);
     for (size_t j = 0; j < swarm_size; j++) {
