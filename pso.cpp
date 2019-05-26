@@ -1,4 +1,4 @@
-Particle pso(double c[],double iw[],size_t max_iter,vec lower_bound,vec upper_bound,size_t swarm_size,double mu,prob& problem){
+Particle pso(double c[2],double iw[2],size_t max_iter,vec lower_bound,vec upper_bound,size_t swarm_size,double mu,const prob& problem){
   auto w = [&](size_t it){ return ((max_iter - it) - (iw[0] - iw[1]))/max_iter + iw[1];};
   auto pm = [&](size_t it){ return pow(1-(it-1)/(max_iter-1),(1/mu));};
   std::vector<Particle> swarm;
