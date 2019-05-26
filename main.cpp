@@ -7,7 +7,7 @@ std::pair<double,double>cost_fcn(pso::vars<N> x){
   double s = 0.;
   double c = 0.;
   for (size_t i = 0; i < x.size(); i++) {
-    s+=std::sin(x[i]*3);
+    s+=std::sin(x[i]*5)+std::sin(x[i]*7)+std::sin(x[i]*11);
     c+=std::sin(x[i]);
   }
   s=std::abs(s);
