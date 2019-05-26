@@ -7,8 +7,11 @@
 #include <cmath>
 #include "rand.hpp"
 using ull=unsigned long long;
-template<ull N> using vec=std::array<double,N>;
-using prob=std::function<std::pair<double,double>(vec)>;
+template<ull N>
+using vec=std::array<double,N>;
+template<ull N>
+using prob=std::function<std::pair<double,double>(vec<N>)>;
+template<ull N>
 class Particle {
   public:
     inline Particle() = default;
@@ -16,17 +19,17 @@ class Particle {
     inline Particle(Particle&&) = default;
     inline Particle& operator=(Particle const&) = default;
     inline Particle& operator=(Particle&&) = default;
-    inline Particle(const vec& l,const vec& u,const prob& problem):l{l},u{u} {
+    inline Particle(const vec<N>& l,const vec<N>& u,const prob<N>& problem):l{l},u{u} {
       for (size_t i = 0; i < l.size(); i++){
-        x.push_back(rnd::unifrnd(l[i],u[i]));
-        v.push_back(0.);
+        x[i]=rnd::unifrnd(l[i],u[i]);
+        v[i]=0.;
       }
       std::tie(cost,infeasablity)=problem(x);
       pBest=x;
       pBest_cost=cost;
       pBest_infeasablity=infeasablity;
     }
-    inline void update(const double w,const double c[],const double pm,const Particle& gBest,const prob& problem){
+    inline void update(const double w,const double c[],const double pm,const Particle& gBest,const prob<N>& problem){
       updateV(w,c,gBest);
       updateX();
       std::tie(cost,infeasablity) = problem(x);
@@ -54,7 +57,7 @@ class Particle {
         pBest_infeasablity=infeasablity;
       }
     }
-    inline void Mutate(const double pm,const prob& problem){
+    inline void Mutate(const double pm,const prob<N>& problem){
       if (rnd::rand()>pm) return;
       size_t j = rnd::unifrnd((size_t)0,x.size());
       double dx=pm*(u[j]-l[j]);
@@ -102,13 +105,13 @@ class Particle {
       std::cout << pBest.back() << ")\n";
     }
   private:
-    vec l;
-    vec u;
-    vec x;
-    vec v;
+    vec<N> l;
+    vec<N> u;
+    vec<N> x;
+    vec<N> v;
     double cost;
     double infeasablity;
-    vec pBest;
+    vec<N> pBest;
     double pBest_cost;
     double pBest_infeasablity;
 };
