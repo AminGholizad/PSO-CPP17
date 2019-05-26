@@ -10,8 +10,8 @@ std::pair<double,double>cost_fcn(vec x){
   return std::make_pair(s,c);
 }
 int main(){
-  double c[]={0.2,0.2};
-  double w[]={0.1,0.01};
+  double c[2]={0.2,0.2};
+  double w[2]={0.1,0.01};
   vec l{-10.,-10.};
   vec u{10.,10.};
   auto p = pso(c,w,100,l,u,10,0.1,cost_fcn);
