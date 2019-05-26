@@ -18,7 +18,6 @@ Particle pso(const double c[2],const double iw[2],const size_t max_iter,const ve
       swarm[j].update(wc,c,pc,gBest,problem);
     }
   }
-  std::cout << "pso" << '\n';
   return gBest;
 }
 #endif //PSO_H
