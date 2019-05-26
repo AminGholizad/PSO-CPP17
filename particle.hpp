@@ -8,9 +8,9 @@
 #include "rand.hpp"
 using ull=unsigned long long;
 template<ull N>
-using vec=std::array<double,N>;
+using arr=std::array<double,N>;
 template<ull N>
-using prob=std::function<std::pair<double,double>(vec<N>)>;
+using prob=std::function<std::pair<double,double>(arr<N>)>;
 template<ull N>
 class Particle {
   public:
@@ -19,7 +19,7 @@ class Particle {
     inline Particle(Particle&&) = default;
     inline Particle& operator=(Particle const&) = default;
     inline Particle& operator=(Particle&&) = default;
-    inline Particle(const vec<N>& l,const vec<N>& u,const prob<N>& problem):l{l},u{u} {
+    inline Particle(const arr<N>& l,const arr<N>& u,const prob<N>& problem):l{l},u{u} {
       for (size_t i = 0; i < l.size(); i++){
         x[i]=rnd::unifrnd(l[i],u[i]);
         v[i]=0.;
@@ -105,13 +105,13 @@ class Particle {
       std::cout << pBest.back() << ")\n";
     }
   private:
-    vec<N> l;
-    vec<N> u;
-    vec<N> x;
-    vec<N> v;
+    arr<N> l;
+    arr<N> u;
+    arr<N> x;
+    arr<N> v;
     double cost;
     double infeasablity;
-    vec<N> pBest;
+    arr<N> pBest;
     double pBest_cost;
     double pBest_infeasablity;
 };
