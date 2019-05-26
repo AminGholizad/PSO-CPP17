@@ -92,11 +92,24 @@ class Particle {
     inline void disp() const&{
       std::cout << "cost = " << cost << '\n';
       std::cout << "infeasablity = " << infeasablity << '\n';
-        std::cout << "( ";
-      for (size_t i = 0; i < x.size(); i++) {
-        std::cout << x[i] << ' ';
+      std::cout << "x:(";
+      for (size_t i = 0; i < x.size()-1; i++) {
+        std::cout << x[i] << ", ";
       }
-      std::cout << ")\n";
+      std::cout << *x.end() << ")\n";
+      std::cout << "v:(";
+      for (size_t i = 0; i < v.size()-1; i++) {
+        std::cout << v[i] << ", ";
+      }
+      std::cout << *v.end() << ")\n";
+      std::cout << "pBest:" << '\n';
+      std::cout << "cost = " << pBest_cost << '\n';
+      std::cout << "infeasablity = " << pBest_infeasablity << '\n';
+      std::cout << "x:(";
+      for (size_t i = 0; i < x.size()-1; i++) {
+        std::cout << pBest[i] << ", ";
+      }
+      std::cout << *pBest.end() << ")\n";
     }
   private:
     vec l;
