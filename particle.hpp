@@ -8,9 +8,9 @@
 namespace pso {
   using ull=unsigned long long;
   template<ull N>
-  using arr=std::array<double,N>;
+  using vars=std::array<double,N>;
   template<ull N>
-  using Problem=std::function<std::pair<double,double>(arr<N>)>;
+  using Problem=std::function<std::pair<double,double>(vars<N>)>;
   template<ull N>
   class Particle {
     public:
@@ -19,7 +19,7 @@ namespace pso {
       inline Particle(Particle&&) = default;
       inline Particle& operator=(Particle const&) = default;
       inline Particle& operator=(Particle&&) = default;
-      inline Particle(const arr<N>& l,const arr<N>& u,const Problem<N>& problem):l{l},u{u} {
+      inline Particle(const vars<N>& l,const vars<N>& u,const Problem<N>& problem):l{l},u{u} {
         for (size_t i = 0; i < l.size(); i++){
           x[i]=rnd::unifrnd(l[i],u[i]);
           v[i]=0.;
@@ -113,13 +113,13 @@ namespace pso {
           infeasablity = i;
         }
       }
-      arr<N> l;
-      arr<N> u;
-      arr<N> x;
-      arr<N> v;
+      vars<N> l;
+      vars<N> u;
+      vars<N> x;
+      vars<N> v;
       double cost;
       double infeasablity;
-      arr<N> pBest;
+      vars<N> pBest;
       double pBest_cost;
       double pBest_infeasablity;
   };
