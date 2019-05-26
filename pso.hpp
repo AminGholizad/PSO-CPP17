@@ -3,7 +3,7 @@
 #include <iostream>
 #include "particle.hpp"
 template<ull N>
-Particle<N> pso(const double c[2],const double iw[2],const size_t max_iter,const vec<N> & lower_bound,const vec<N> & upper_bound,const size_t swarm_size,const double mu,const prob<N>& problem){
+Particle<N> pso(const double c[2],const double iw[2],const size_t max_iter,const arr<N>& lower_bound,const arr<N>& upper_bound,const size_t swarm_size,const double mu,const prob<N>& problem){
   auto w = [&](size_t it){ return ((max_iter - it) - (iw[0] - iw[1]))/max_iter + iw[1];};
   auto pm = [&](size_t it){ return pow(1-it/(max_iter-1.),1/mu);};
   std::vector<Particle<N>> swarm(swarm_size);
