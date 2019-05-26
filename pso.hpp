@@ -1,5 +1,5 @@
 #ifndef PSO_H
 #define PSO_H
 #include "particle.hpp"
-Particle pso(double c[],double iw[],size_t max_iter,vec lower_bound,vec upper_bound,size_t swarm_size,double mu,prob& problem);
+Particle pso(double [2],double [2],size_t,vec,vec,size_t,double,const prob&);
 #endif //PSO_H
