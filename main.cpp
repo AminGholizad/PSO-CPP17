@@ -11,12 +11,12 @@ std::pair<double,double>cost_fcn(pso::vars<N> x){
     c+=std::sin(x[i]);
   }
   s=std::abs(s);
-  c=std::abs(c/4-0.8);
+  c=std::abs(c/4-0.7);
   return std::make_pair(s,c);
 }
 int main(){
-  const pso::ull Nvars = 4;
-  const pso::ull Swarm_size = 100;
+  const pso::ull Nvars{4};
+  const pso::ull Swarm_size{200};
   pso::vars<Nvars> l{0,0,0,0};
   pso::vars<Nvars> u{pi/2,pi/2,pi/2,pi/2};
   auto p = pso::pso<Nvars,Swarm_size>(l,u,cost_fcn<Nvars>,2000);
