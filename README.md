@@ -1,5 +1,7 @@
 # Particle swarm optimization (PSO)
-A Particle swarm optimization (PSO) implementation in C++17 with constrtaint and objective in one function
+Particle swarm optimization algorithm ([PSO](https://en.wikipedia.org/wiki/Particle_swarm_optimization)) for a minimization problem. In this project, nonlinar constraints are implemented as infeasable solutions.
+This project is implemented in C++17.
+Constrtaint and objective in one function.
 
 # Features
 
