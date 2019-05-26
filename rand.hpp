@@ -8,7 +8,8 @@ namespace rnd{
     static std::mt19937 gen(rd());
     return gen;
   }
-  template <typename T> inline T unifrnd(T a,T b){
+  template <typename T>
+  inline T unifrnd(T a,T b){
     if constexpr(std::is_integral_v<T>){
       std::uniform_int_distribution<T> dis(a, b);
       return dis(Generator());
