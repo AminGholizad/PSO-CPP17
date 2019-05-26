@@ -4,7 +4,6 @@
 #include <array>
 #include <functional>
 #include <limits>
-#include <cmath>
 #include "rand.hpp"
 namespace pso {
   using ull=unsigned long long;
@@ -83,7 +82,8 @@ namespace pso {
       inline bool dominates(const Particle& b)const&{
         return ((infeasablity<=b.infeasablity) && (cost < b.cost));
       }
-      inline static Particle get_Best(const std::vector<Particle>& swarm){
+      template <ull S>
+      inline static Particle get_Best(const std::array<Particle,S>& swarm){
         return *std::min_element(swarm.begin(),swarm.end(),
                                 [](const auto& a,const auto& b){
                                   return a.dominates(b);
