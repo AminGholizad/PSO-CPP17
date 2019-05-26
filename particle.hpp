@@ -62,19 +62,14 @@ class Particle {
     }
     inline void Mutate(const double pm,const prob& problem){
       if (rnd::rand()>pm) return;
-      int j = rnd::unifrnd((size_t)0,x.size());
+      size_t j = rnd::unifrnd((size_t)0,x.size());
       double dx=pm*(u[j]-l[j]);
       double lb=std::max(x[j]-dx,l[j]);
       double ub=std::min(x[j]+dx,u[j]);
       auto X = x;
       X[j]=rnd::unifrnd(lb,ub);
       auto [c,i] = problem(X);
-      if (i < infeasablity && c < cost){
-        x[j]=X[j];
-        cost = c;
-        infeasablity = i;
-      }
-      else if (rnd::rand()<0.5){
+      if ((i < infeasablity && c < cost) || (rnd::rand()<0.5)){
         x[j]=X[j];
         cost = c;
         infeasablity = i;
@@ -90,6 +85,7 @@ class Particle {
                               });
     }
     inline void info() const&{
+      std::cout << "info:\n";
       std::cout << "cost = " << cost << '\n';
       std::cout << "infeasablity = " << infeasablity << '\n';
       std::cout << "x:(";
