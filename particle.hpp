@@ -91,22 +91,22 @@ namespace pso {
       }
       inline void info() const&{
         std::cout << "info:\n";
-        std::cout << "cost = " << cost << '\n';
-        std::cout << "infeasablity = " << infeasablity << '\n';
-        std::cout << "x:(";
+        std::cout << "\tcost = " << cost << '\n';
+        std::cout << "\tinfeasablity = " << infeasablity << '\n';
+        std::cout << "\tx:(";
         for (size_t i = 0; i < x.size()-1; i++) {
           std::cout << x[i] << ", ";
         }
         std::cout << x.back() << ")\n";
-        std::cout << "v:(";
+        std::cout << "\tv:(";
         for (size_t i = 0; i < v.size()-1; i++) {
           std::cout << v[i] << ", ";
         }
         std::cout << v.back() << ")\n";
-        std::cout << "pBest:" << '\n';
-        std::cout << "cost = " << pBest_cost << '\n';
-        std::cout << "infeasablity = " << pBest_infeasablity << '\n';
-        std::cout << "x:(";
+        std::cout << "\tpBest:" << '\n';
+        std::cout << "\t\tcost = " << pBest_cost << '\n';
+        std::cout << "\t\tinfeasablity = " << pBest_infeasablity << '\n';
+        std::cout << "\t\tx:(";
         for (size_t i = 0; i < x.size()-1; i++) {
           std::cout << pBest[i] << ", ";
         }
