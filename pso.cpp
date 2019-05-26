@@ -5,8 +5,15 @@ Particle pso(double c[],double iw[],size_t max_iter,vec lower_bound,vec upper_bo
   std::vector<Particle> swarm;
   for (size_t i = 0; i < swarm_size; i++)
     swarm.emplace_back(lower_bound,upper_bound,problem);
-  auto gBest = Particle::get_gBest(swarm);
-
+  Particle gBest;
+  for (size_t i = 0; i < max_iter; i++) {
+    gBest = Particle::get_Best(swarm);
+    auto wc = w(i);
+    auto pc = pm(i);
+    for (size_t j = 0; j < swarm_size; j++) {
+      swarm[j].update(wc,c,pc,gBest,problem);
+    }
+  }
 
   return gBest;
 }
