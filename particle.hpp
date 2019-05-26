@@ -29,7 +29,7 @@ namespace pso {
         pBest_cost=cost;
         pBest_infeasablity=infeasablity;
       }
-      inline void update(const double w,const std::array<double,2> c,const double pm,const Particle& gBest,const prob<N>& problem){
+      inline void update(const double w,const std::array<double,2>& c,const double pm,const Particle& gBest,const prob<N>& problem){
         updateV(w,c,gBest);
         updateX();
         std::tie(cost,infeasablity) = problem(x);
@@ -70,7 +70,7 @@ namespace pso {
         std::cout << pBest.back() << ")\n";
       }
     private:
-      inline void updateV(const double w,const std::array<double,2> c,const Particle& gBest){
+      inline void updateV(const double w,const std::array<double,2>& c,const Particle& gBest){
         for (size_t i = 0; i < v.size(); i++) {
           v[i]=w*v[i]+c[0]*rnd::rand()*(pBest[i]-x[i])+c[1]*rnd::rand()*(gBest.x[i]-x[i]);
         }
