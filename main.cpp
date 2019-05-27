@@ -19,7 +19,7 @@ int main(){
   const pso::ull Swarm_size{200};
   pso::vars<Nvars> l{0,0,0,0};
   pso::vars<Nvars> u{pi/2,pi/2,pi/2,pi/2};
-  auto p = pso::pso<Nvars,Swarm_size>(l,u,cost_fcn<Nvars>,2000);
-  p.info();
+  auto [solution,swarm] = pso::pso<Nvars,Swarm_size>(l,u,cost_fcn<Nvars>,2000);
+  solution.info();
   return 0;
 }
