@@ -22,15 +22,5 @@ namespace rnd{
   inline double rand(){
     return unifrnd(0.,1.);
   }
-  template<typename Iter, typename RandomGenerator>
-  inline Iter select_randomly(Iter start, Iter end, RandomGenerator& g){
-      std::uniform_int_distribution<int> dis(0, std::distance(start, end) - 1);
-      std::advance(start, dis(g));
-      return start;
-  }
-  template<typename Iter>
-  inline Iter select_randomly(Iter start, Iter end){
-    return select_randomly(start,end,Generator());
-  }
 }
 #endif
