@@ -70,20 +70,12 @@ namespace pso {
         out << pBest.back() << ")\n";
       }
       inline void csv_out(std::ostream& out,bool header=true) const&{
-        if (header) out<< "x,cost,infeasablity,pBest,pBest_cost,pBest_infeasablity,is_dominated,grid_index\n";
+        if (header) out<< "x,cost,infeasablity,pBest,pBest_cost,pBest_infeasablity\n";
         out << '"';
         for (size_t i = 0; i < N-1; i++) out << x[i] << ',';
-        out << x.back() << "\",\"";
-        for (size_t i = 0; i < O-1; i++) out << cost[i] << ',';
-        out << cost.back() << "\",";
-        out << infeasablity << ",\"";
-        for (size_t i = 0; i < N-1; i++)
-          out << pBest[i] << ',';
-        out << pBest.back() << "\",\"";
-        for (size_t i = 0; i < O-1; i++)
-          out << pBest_cost[i] << ",";
-        out << pBest_cost.back() << "\",";
-        out << pBest_infeasablity << '\n';
+        out << x.back() << "\"," << cost << ',' << infeasablity << ",\"";
+        for (size_t i = 0; i < N-1; i++) out << pBest[i] << ',';
+        out << pBest.back() << "\","  << pBest_cost << "," << pBest_infeasablity << '\n';
       }
       template<template <typename... Args> class Container,typename... Types>
       inline static void csv_out(std::ostream& out,Container<Types...>& swarm){
