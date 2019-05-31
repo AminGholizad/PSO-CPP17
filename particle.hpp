@@ -24,20 +24,20 @@ namespace pso {
           x[i]=rnd::unifrnd(l[i],u[i]);
           v[i]=0.;
         }
-        std::tie(cost,infeasablity)=problem(x);
+        std::tie(cost,infeasiblity)=problem(x);
         pBest=x;
         pBest_cost=cost;
-        pBest_infeasablity=infeasablity;
+        pBest_infeasiblity=infeasiblity;
       }
       inline void update(const Particle& gBest,const Problem<N>& problem,const double w=0.5,const std::array<double,2>& c={0.2,0.2},const double pm=0.1){
         updateV(gBest,w,c);
         updateX();
-        std::tie(cost,infeasablity) = problem(x);
+        std::tie(cost,infeasiblity) = problem(x);
         Mutate(problem,pm);
         updatePBest();
       }
       inline bool dominates(const Particle& b)const&{
-        return ((infeasablity<=b.infeasablity) && (cost < b.cost));
+        return ((infeasiblity<=b.infeasiblity) && (cost < b.cost));
       }
       inline static Particle get_Best(const std::vector<Particle>& swarm){
         return *std::min_element(swarm.begin(),swarm.end(),
@@ -55,7 +55,7 @@ namespace pso {
       inline void info(std::ostream& out=std::cout) const&{
         out << "particle info:\n";
         out << "\tcost = " << cost << '\n';
-        out << "\tinfeasablity = " << infeasablity << '\n';
+        out << "\tinfeasiblity = " << infeasiblity << '\n';
         out << "\tx=(";
         for (size_t i = 0; i < N-1; i++) {
           out << x[i] << ", ";
@@ -68,7 +68,7 @@ namespace pso {
         out << v.back() << ")\n";
         out << "\tpBest:" << '\n';
         out << "\t\tcost = " << pBest_cost << '\n';
-        out << "\t\tinfeasablity = " << pBest_infeasablity << '\n';
+        out << "\t\tinfeasiblity = " << pBest_infeasiblity << '\n';
         out << "\t\tx=(";
         for (size_t i = 0; i < N-1; i++) {
           out << pBest[i] << ", ";
@@ -76,12 +76,12 @@ namespace pso {
         out << pBest.back() << ")\n";
       }
       inline void csv_out(std::ostream& out,bool header=true) const&{
-        if (header) out<< "x,cost,infeasablity,pBest,pBest_cost,pBest_infeasablity\n";
+        if (header) out<< "x,cost,infeasiblity,pBest,pBest_cost,pBest_infeasiblity\n";
         out << '"';
         for (size_t i = 0; i < N-1; i++) out << x[i] << ',';
-        out << x.back() << "\"," << cost << ',' << infeasablity << ",\"";
+        out << x.back() << "\"," << cost << ',' << infeasiblity << ",\"";
         for (size_t i = 0; i < N-1; i++) out << pBest[i] << ',';
-        out << pBest.back() << "\","  << pBest_cost << "," << pBest_infeasablity << '\n';
+        out << pBest.back() << "\","  << pBest_cost << "," << pBest_infeasiblity << '\n';
       }
       inline static void csv_out(std::ostream& out,std::vector<Particle>& swarm){
         swarm[0].csv_out(out,true);
@@ -117,10 +117,10 @@ namespace pso {
         }
       }
       inline void updatePBest(){
-        if ((infeasablity<=pBest_infeasablity) && (cost<pBest_cost)){
+        if ((infeasiblity<=pBest_infeasiblity) && (cost<pBest_cost)){
           pBest=x;
           pBest_cost=cost;
-          pBest_infeasablity=infeasablity;
+          pBest_infeasiblity=infeasiblity;
         }
       }
       inline void Mutate(const Problem<N>& problem,const double pm=0.1){
@@ -132,10 +132,10 @@ namespace pso {
         auto X = x;
         X[j]=rnd::unifrnd(lb,ub);
         auto [c,i] = problem(X);
-        if ((i < infeasablity && c < cost) || (rnd::rand()<0.5)){
+        if ((i < infeasiblity && c < cost) || (rnd::rand()<0.5)){
           x[j]=X[j];
           cost = c;
-          infeasablity = i;
+          infeasiblity = i;
         }
       }
       vars<N> l;
@@ -143,10 +143,10 @@ namespace pso {
       vars<N> x;
       vars<N> v;
       double cost;
-      double infeasablity;
+      double infeasiblity;
       vars<N> pBest;
       double pBest_cost;
-      double pBest_infeasablity;
+      double pBest_infeasiblity;
   };
 } /* pso */
 #endif //PARTICLE_H
