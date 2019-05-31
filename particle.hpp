@@ -84,17 +84,15 @@ namespace pso {
         out << pBest.back() << "\","  << pBest_cost << "," << pBest_infeasablity << '\n';
       }
       inline static void csv_out(std::ostream& out,std::vector<Particle>& swarm){
-        auto i = swarm.begin();
-        i->csv_out(out,true);
-        for (; i != swarm.end(); i++)
-          i->csv_out(out,false);
+        swarm[0].csv_out(out,true);
+        for (size_t i = 1; i < swarm.size(); i++)
+          swarm[i].csv_out(out,false);
       }
       template <ull S>
       inline static void csv_out(std::ostream& out,std::array<Particle,S>& swarm){
-        auto i = swarm.begin();
-        i->csv_out(out,true);
-        for (; i != swarm.end(); i++)
-          i->csv_out(out,false);
+        swarm[0].csv_out(out,true);
+        for (size_t i = 1; i < S; i++)
+          swarm[i].csv_out(out,false);
       }
     private:
       inline void updateV(const Particle& gBest,const double w=0.5,const std::array<double,2>& c={0.2,0.2}){
