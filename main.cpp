@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "pso.hpp"
 #include <cmath>
 const double pi = 3.1415926535897932385;
@@ -21,5 +22,7 @@ int main(){
   pso::vars<Nvars> u{pi/2,pi/2,pi/2,pi/2};
   auto [solution,swarm] = pso::pso<Nvars,Swarm_size>(l,u,cost_fcn<Nvars>,2000);
   solution.info();
+  std::ofstream f("./resualt.csv");
+  solution.csv_out(f);
   return 0;
 }
