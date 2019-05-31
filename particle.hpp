@@ -91,7 +91,7 @@ namespace pso {
       template <ull T>
       inline static void csv_out(std::ostream& out,std::array<Particle,T>& swarm){
         swarm[0].csv_out(out,true);
-        for (size_t i = 1; i < S; i++)
+        for (size_t i = 1; i < swarm.size(); i++)
           swarm[i].csv_out(out,false);
       }
     private:
