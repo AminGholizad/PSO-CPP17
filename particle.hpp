@@ -69,6 +69,31 @@ namespace pso {
         }
         out << pBest.back() << ")\n";
       }
+      inline void csv_out(std::ostream& out,bool header=true) const&{
+        if (header) out<< "x,cost,infeasablity,pBest,pBest_cost,pBest_infeasablity,is_dominated,grid_index\n";
+        out << '"';
+        for (size_t i = 0; i < N-1; i++) out << x[i] << ',';
+        out << x.back() << "\",\"";
+        for (size_t i = 0; i < O-1; i++) out << cost[i] << ',';
+        out << cost.back() << "\",";
+        out << infeasablity << ",\"";
+        for (size_t i = 0; i < N-1; i++)
+          out << pBest[i] << ',';
+        out << pBest.back() << "\",\"";
+        for (size_t i = 0; i < O-1; i++)
+          out << pBest_cost[i] << ",";
+        out << pBest_cost.back() << "\",";
+        out << pBest_infeasablity << ',';
+        if (is_dominated) out << "yes,";
+        else out << "no,";
+        out << grid_index << '\n';
+      }
+      template<template <typename... Args> class Container,typename... Types>
+      inline static void csv_out(std::ostream& out,Container<Types...>& swarm){
+        swarm[0].csv_out(out,true);
+        for (size_t i = 1; i < swarm.size(); i++)
+          swarm[i].csv_out(out,false);
+      }
     private:
       inline void updateV(const Particle& gBest,const double w=0.5,const std::array<double,2>& c={0.2,0.2}){
         for (size_t i = 0; i < N; i++) {
