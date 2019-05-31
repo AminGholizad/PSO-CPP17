@@ -39,6 +39,12 @@ namespace pso {
       inline bool dominates(const Particle& b)const&{
         return ((infeasablity<=b.infeasablity) && (cost < b.cost));
       }
+      inline static Particle get_Best(const std::vector<Particle>& swarm){
+        return *std::min_element(swarm.begin(),swarm.end(),
+                                [](const auto& a,const auto& b){
+                                  return a.dominates(b);
+                                });
+      }
       template <ull S>
       inline static Particle get_Best(const std::array<Particle,S>& swarm){
         return *std::min_element(swarm.begin(),swarm.end(),
@@ -77,11 +83,18 @@ namespace pso {
         for (size_t i = 0; i < N-1; i++) out << pBest[i] << ',';
         out << pBest.back() << "\","  << pBest_cost << "," << pBest_infeasablity << '\n';
       }
-      template<template <typename... Args> class Container,typename... Types>
-      inline static void csv_out(std::ostream& out,Container<Types...>& swarm){
-        swarm[0].csv_out(out,true);
-        for (size_t i = 1; i < swarm.size(); i++)
-          swarm[i].csv_out(out,false);
+      inline static void csv_out(std::ostream& out,std::vector<Particle>& swarm){
+        auto i = swarm.begin();
+        i->csv_out(out,true);
+        for (; i != swarm.end(); i++)
+          i->csv_out(out,false);
+      }
+      template <ull S>
+      inline static void csv_out(std::ostream& out,std::array<Particle,S>& swarm){
+        auto i = swarm.begin();
+        i->csv_out(out,true);
+        for (; i != swarm.end(); i++)
+          i->csv_out(out,false);
       }
     private:
       inline void updateV(const Particle& gBest,const double w=0.5,const std::array<double,2>& c={0.2,0.2}){
