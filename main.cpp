@@ -23,6 +23,6 @@ int main(){
   auto [solution,swarm] = pso::pso<Nvars,Swarm_size>(l,u,cost_fcn<Nvars>,2000);
   solution.info();
   std::ofstream f("./resualt.csv");
-  solution.csv_out(f);
+  pso::Particle<Nvars>::csv_out(f,swarm);
   return 0;
 }
