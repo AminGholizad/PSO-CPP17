@@ -83,10 +83,7 @@ namespace pso {
         for (size_t i = 0; i < O-1; i++)
           out << pBest_cost[i] << ",";
         out << pBest_cost.back() << "\",";
-        out << pBest_infeasablity << ',';
-        if (is_dominated) out << "yes,";
-        else out << "no,";
-        out << grid_index << '\n';
+        out << pBest_infeasablity << '\n';
       }
       template<template <typename... Args> class Container,typename... Types>
       inline static void csv_out(std::ostream& out,Container<Types...>& swarm){
