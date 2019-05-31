@@ -46,28 +46,28 @@ namespace pso {
                                   return a.dominates(b);
                                 });
       }
-      inline void info() const&{
-        std::cout << "particle info:\n";
-        std::cout << "\tcost = " << cost << '\n';
-        std::cout << "\tinfeasablity = " << infeasablity << '\n';
-        std::cout << "\tx=(";
+      inline void info(std::ostream& out=std::cout) const&{
+        out << "particle info:\n";
+        out << "\tcost = " << cost << '\n';
+        out << "\tinfeasablity = " << infeasablity << '\n';
+        out << "\tx=(";
         for (size_t i = 0; i < N-1; i++) {
-          std::cout << x[i] << ", ";
+          out << x[i] << ", ";
         }
-        std::cout << x.back() << ")\n";
-        std::cout << "\tv=(";
+        out << x.back() << ")\n";
+        out << "\tv=(";
         for (size_t i = 0; i < N-1; i++) {
-          std::cout << v[i] << ", ";
+          out << v[i] << ", ";
         }
-        std::cout << v.back() << ")\n";
-        std::cout << "\tpBest:" << '\n';
-        std::cout << "\t\tcost = " << pBest_cost << '\n';
-        std::cout << "\t\tinfeasablity = " << pBest_infeasablity << '\n';
-        std::cout << "\t\tx=(";
+        out << v.back() << ")\n";
+        out << "\tpBest:" << '\n';
+        out << "\t\tcost = " << pBest_cost << '\n';
+        out << "\t\tinfeasablity = " << pBest_infeasablity << '\n';
+        out << "\t\tx=(";
         for (size_t i = 0; i < N-1; i++) {
-          std::cout << pBest[i] << ", ";
+          out << pBest[i] << ", ";
         }
-        std::cout << pBest.back() << ")\n";
+        out << pBest.back() << ")\n";
       }
     private:
       inline void updateV(const Particle& gBest,const double w=0.5,const std::array<double,2>& c={0.2,0.2}){
